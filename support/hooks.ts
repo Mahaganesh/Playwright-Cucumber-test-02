@@ -1,7 +1,7 @@
 import { After, Before, BeforeAll, AfterAll } from '@cucumber/cucumber';
 import { chromium, Browser, BrowserContext, Page } from 'playwright';
-import SetmoreLogin from '../../../page/app.page';
-import ElementUtil from '../../../utils/elements-utils';
+import SetmoreLogin from '../page/app.page';
+import ElementUtil from '../utils/elements-utils';
 
 let browser: Browser;
 let context: BrowserContext;

@@ -1,6 +1,9 @@
-import { Given, When, Then } from "@cucumber/cucumber"
+import { Given, When, Then, setDefaultTimeout } from "@cucumber/cucumber"
 import { chromium, Browser, BrowserContext, Page } from '@playwright/test';
 
+
+
+setDefaultTimeout(60 * 1000);
 
 let browser: Browser;
 let context: BrowserContext;
@@ -14,7 +17,10 @@ Given('Login to Setmore', async function () {
 
     // await page.goto("https://www.google.com")
     // await page.pause()
-    return 'passed';
+    // await page.close()
+    // await context.close()
+    // await browser.close()
+    return 'failed';
 });
 
 

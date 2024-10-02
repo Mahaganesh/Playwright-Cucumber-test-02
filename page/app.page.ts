@@ -46,5 +46,3 @@ export default class SetmoreLogin {
         return this.elementUtil.trigger(this.setmoreLoginButton);
     }
 }
-
-// export default SetmoreLogin;
