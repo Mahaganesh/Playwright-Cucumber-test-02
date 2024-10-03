@@ -60,10 +60,9 @@
 // }
 
 
-// SetmoreLogin.ts
 import { Page } from 'playwright';
 import ElementUtil from '../utils/elements-utils';
-import setmoreLoginStore from '../store/setmore-login-store'; // Import the MobX store
+import setmoreLoginStore from '../store/setmore-login-store'; 
 
 export default class SetmoreLogin {
     private page: Page;

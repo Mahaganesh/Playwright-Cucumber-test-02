@@ -1,4 +1,3 @@
-// SetmoreLoginStore.ts
 import { makeAutoObservable } from 'mobx';
 
 class SetmoreLoginStore {

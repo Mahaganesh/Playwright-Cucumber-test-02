@@ -29,7 +29,6 @@ When('Select Contacts Component', async function () {
 
 
 Then('Perform search', async function () {
-    // Write code here that turns the phrase above into concrete actions
     return 'passed';
 });
 
