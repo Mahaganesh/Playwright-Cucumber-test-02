@@ -1,13 +1,14 @@
 import { Page } from 'playwright';
 import ElementUtil from '../utils/elements-utils';
 
-class SetmoreLogin {
+export default class SetmoreLogin {
     private page: Page;
     private elementUtil: ElementUtil;
     private setmoreLoginEmail: string;
     private setmoreLoginPassword: string;
     private setmoreLoginButton: string;
     private setmoreCalendarSideButton: string;
+    private setmoreContactsPage: string;
 
     constructor(page: Page) {
         this.page = page;
@@ -16,6 +17,7 @@ class SetmoreLogin {
         this.setmoreLoginPassword = '//input[@class="password-field"]';
         this.setmoreLoginButton = '//a[@id="login-now"]';
         this.setmoreCalendarSideButton = '//button[@data-testid="sidebar-trigger"]';
+        this.setmoreContactsPage = '//a[@data-testid="contacts"]';
     }
 
     async waitForSetmoreLoginEmailField() {
@@ -34,17 +36,25 @@ class SetmoreLogin {
         return this.elementUtil.waitForElementToBeVisible(this.setmoreCalendarSideButton);
     }
 
+    async waitForSetmoreContactsComponent() {
+        return this.elementUtil.waitForElementToBeVisible(this.setmoreContactsPage)
+    }
+
+    //Below funtions are all action function
+
     async setmoreLoginPageEmailField(email: string): Promise<void> {
         return this.elementUtil.fill(this.setmoreLoginEmail, email);
     }
 
-    async setmoreLoginPagePasswordField(password: string): Promise<void> {
+    async setmoreLoginPagePasswordField(password: any): Promise<void> {
         return this.elementUtil.fill(this.setmoreLoginPassword, password);
     }
 
     async setmoreLoginPageButton(): Promise<void> {
         return this.elementUtil.trigger(this.setmoreLoginButton);
     }
-}
 
-module.exports = SetmoreLogin;
+    async setmoreContactsComponent(): Promise<void> {
+        return this.elementUtil.trigger(this.setmoreContactsPage);
+    }
+}

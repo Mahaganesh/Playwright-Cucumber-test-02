@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx cucumber-js",
+    "run:setmore": "npx cucumber-js --tags '@setmoreLogin'",
+    "sausedemo": "npx cucumber-js --tags '@SauseDemo'"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -13,6 +17,7 @@
     "@types/node": "^22.7.4"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "reflect-metadata": "^0.2.2",
     "ts-node": "^10.9.2"
   }

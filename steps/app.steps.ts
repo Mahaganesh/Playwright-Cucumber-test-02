@@ -1,26 +1,30 @@
-import { Given, When, Then, setDefaultTimeout } from "@cucumber/cucumber"
-import { chromium, Browser, BrowserContext } from '@playwright/test';
+import { Before, Given, When, Then, setDefaultTimeout } from "@cucumber/cucumber"
+import SetmoreLogin  from '../page/app.page'
 import { page } from "../support/hooks";
-import SetmoreLogin from "../page/app.page1";
-// import SetmoreLogin  from '../page/app.page'
 
 
 
 
 setDefaultTimeout(60 * 1000);
 
-let setmoreLogin = new SetmoreLogin(page);
+let setmoreLogin: SetmoreLogin;
+
+Before(async function () {
+    if (!page) {
+        throw new Error("Page is not initialized.");
+    }
+    setmoreLogin = new SetmoreLogin(page);
+});
 
 Given('Login to Setmore', async function () {
     console.log("Waiting")
-    await setmoreLogin.waitForSetmoreCalenderSideButton();
-
+    // await page.pause()
+    await this.setmoreLogin.waitForSetmoreCalenderSideButton();
 });
 
 
 When('Select Contacts Component', async function () {
-    // Write code here that turns the phrase above into concrete actions
-    return 'passed';
+    await this.setmoreLogin.setmoreContactsComponent()
 });
 
 
