@@ -26,7 +26,7 @@ export default class ElementUtil {
     }
 
     async waitForElementToBeVisible(element: string): Promise<void> {
-        return this.performAction(element, async (locator) => locator, { state: "visible", timeout: 45000 });
+        return this.performAction(element, async (locator) => {}, { state: "visible", timeout: 60 * 10000 });
     }
 
     async waitForElementToHidden(element: string): Promise<void> {
