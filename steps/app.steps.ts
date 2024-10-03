@@ -1,26 +1,20 @@
 import { Given, When, Then, setDefaultTimeout } from "@cucumber/cucumber"
-import { chromium, Browser, BrowserContext, Page } from '@playwright/test';
+import { chromium, Browser, BrowserContext } from '@playwright/test';
+import { page } from "../support/hooks";
+import SetmoreLogin from "../page/app.page1";
+// import SetmoreLogin  from '../page/app.page'
+
 
 
 
 setDefaultTimeout(60 * 1000);
 
-let browser: Browser;
-let context: BrowserContext;
-let page: Page;
+let setmoreLogin = new SetmoreLogin(page);
 
 Given('Login to Setmore', async function () {
-    // browser = await chromium.launch({ headless: false });
-    // context = await browser.newContext();
-    // page = await context.newPage();
-    // this.page = page; 
+    console.log("Waiting")
+    await setmoreLogin.waitForSetmoreCalenderSideButton();
 
-    // await page.goto("https://www.google.com")
-    // await page.pause()
-    // await page.close()
-    // await context.close()
-    // await browser.close()
-    return 'failed';
 });
 
 

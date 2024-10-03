@@ -97,14 +97,23 @@ export default class ElementUtil {
 
     // Utility method to minimize repetition for actions on elements
     async performAction(element: string, action: (locator: any) => Promise<any>, options = { state: "visible", timeout: 30000 }): Promise<any> {
+        console.log('---------------------- for calender button')
+        console.log(element)
         try {
+            if (!element) {
+                throw new Error('Element selector is undefined or empty');
+            }
+
             const locator = this.page.locator(element);
+            if (!locator) {
+                throw new Error(`Locator for element '${element}' not found`);
+            }
+
             await locator.waitFor(options);
             return await action(locator);
         } catch (error) {
             console.error(`Error performing action on element: ${element}`, error);
-        } finally {
-            // Optional: Any cleanup if needed after the action
+            throw error; // Rethrow the error for upstream handling
         }
     }
 
@@ -119,3 +128,4 @@ export default class ElementUtil {
         }
     }
 }
+

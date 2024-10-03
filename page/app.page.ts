@@ -1,7 +1,7 @@
 import { Page } from 'playwright';
 import ElementUtil from '../utils/elements-utils';
 
-export default class SetmoreLogin {
+class SetmoreLogin {
     private page: Page;
     private elementUtil: ElementUtil;
     private setmoreLoginEmail: string;
@@ -46,3 +46,5 @@ export default class SetmoreLogin {
         return this.elementUtil.trigger(this.setmoreLoginButton);
     }
 }
+
+module.exports = SetmoreLogin;
