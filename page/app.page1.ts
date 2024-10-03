@@ -33,7 +33,7 @@ export default class SetmoreLogin {
     }
     // Methods using ElementUtil    
     async waitForSetmoreLoginEmailField() {
-        return this._elementUtil.elementIsVisible(this.setmoreLoginEmail); 
+        return this._elementUtil.elementIsVisible(this.setmoreLoginEmail);
     }
     async waitForSetmoreLoginPasswordField() {
         return this._elementUtil.elementIsVisible(this.setmoreLoginPassword);
