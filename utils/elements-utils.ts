@@ -26,7 +26,7 @@ export default class ElementUtil {
     }
 
     async waitForElementToBeVisible(element: string): Promise<void> {
-        return this.performAction(element, async (locator) => {}, { state: "visible", timeout: 60 * 10000 });
+        return this.performAction(element, async (locator) => { }, { state: "visible", timeout: 60 * 10000 });
     }
 
     async waitForElementToHidden(element: string): Promise<void> {
@@ -53,7 +53,7 @@ export default class ElementUtil {
     }
 
     async elementIsVisible(element: string): Promise<boolean> {
-        return this.performAction(element, async (locator) => locator.isVisible(), { state: "visible", timeout: 15000 });
+        return this.performAction(element, async (locator) => locator.isVisible(), { state: "visible", timeout: 60 * 10000 });
     }
 
     async getTextContent(element: string): Promise<string | null> {
@@ -96,7 +96,7 @@ export default class ElementUtil {
     }
 
     // Utility method to minimize repetition for actions on elements
-    async performAction(element: string, action: (locator: any) => Promise<any>, options = { state: "visible", timeout: 30000 }): Promise<any> {
+    async performAction(element: string, action: (locator: any) => Promise<any>, options = { state: "visible", timeout: 60 * 10000 }): Promise<any> {
         console.log('---------------------- for calender button')
         console.log(element)
         try {

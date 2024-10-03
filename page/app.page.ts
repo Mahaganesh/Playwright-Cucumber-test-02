@@ -38,7 +38,7 @@ class SetmoreLogin {
         return this.elementUtil.fill(this.setmoreLoginEmail, email);
     }
 
-    async setmoreLoginPagePasswordField(password: string): Promise<void> {
+    async setmoreLoginPagePasswordField(password: any): Promise<void> {
         return this.elementUtil.fill(this.setmoreLoginPassword, password);
     }
 

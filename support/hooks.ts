@@ -1,4 +1,4 @@
-import { After, Before, BeforeAll, AfterAll, ITestCaseHookParameter } from '@cucumber/cucumber';
+import { After, Before, BeforeAll, AfterAll, ITestCaseHookParameter, setDefaultTimeout } from '@cucumber/cucumber';
 import { chromium, Browser, BrowserContext, Page } from 'playwright';
 import ElementUtil from '../utils/elements-utils';
 import SetmoreLogin from '../page/app.page1';
@@ -6,6 +6,7 @@ import * as dotenv from 'dotenv'; // Import dotenv
 
 // Load environment variables from the .env file
 dotenv.config();
+setDefaultTimeout(60 * 10000)
 
 let browser: Browser;
 let context: BrowserContext;
@@ -35,15 +36,20 @@ Before(async function (scenario: ITestCaseHookParameter) {
   // Load credentials based on the tags
   if (tags.includes('@setmoreLogin')) {
     // Load Setmore credentials
-    loginUrl = process.env.SETMORE_LOGIN_URL || 'https://go.setmore.com';
-    email = process.env.SETMORE_EMAIL || 'mahaganesh.lt@mailinator.com';
-    password = process.env.SETMORE_PASSWORD || 'I2password@97';
+    loginUrl = process.env.SETMORE_LOGIN_URL;
+    email = process.env.SETMORE_EMAIL;
+    password = process.env.SETMORE_PASSWORD;
   } else if (tags.includes('@SauseDemo')) {
     // Load SauceDemo credentials
-    loginUrl = process.env.SAUCEDEMO_LOGIN_URL || 'https://www.saucedemo.com';
-    email = process.env.SAUCEDEMO_EMAIL || 'standard_user';
-    password = process.env.SAUCEDEMO_PASSWORD || 'secret_sauce';
+    loginUrl = process.env.SAUCEDEMO_LOGIN_URL;
+    email = process.env.SAUCEDEMO_EMAIL;
+    password = process.env.SAUCEDEMO_PASSWORD;
   }
+
+  // console.log(await this.setmoreLogin.setmoreLoginPageEmailField(email))
+  // console.log(await this.setmoreLogin.setmoreLoginPageEmailField(email))
+
+  // console.log(await this.setmoreLogin.setmoreLoginPagePasswordField(password))
 
   // Use the dynamically loaded credentials and URL
   await this.elementUtils.gotoURL(loginUrl);

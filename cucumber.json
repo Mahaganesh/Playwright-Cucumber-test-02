@@ -18,9 +18,5 @@
             "progress-bar"
         ],
         "parallel": 2
-    },
-    "scripts": {
-        "run:test1": "npx cucumber-js --tags '@test1'",
-        "run:test2": "npx cucumber-js --tags '@test2'"
     }
 }

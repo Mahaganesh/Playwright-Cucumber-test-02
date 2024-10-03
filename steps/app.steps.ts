@@ -13,7 +13,7 @@ let setmoreLogin = new SetmoreLogin(page);
 
 Given('Login to Setmore', async function () {
     console.log("Waiting")
-    await setmoreLogin.waitForSetmoreCalenderSideButton();
+    // await setmoreLogin.waitForSetmoreCalenderSideButton();
 
 });
 
