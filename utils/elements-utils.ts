@@ -1,3 +1,9 @@
+
+type WaitForOptions = {
+    state?: "visible" | "detached" | "attached" | "hidden";
+    timeout?: number;
+};
+
 export default class ElementUtil {
     page: any;
 
@@ -28,7 +34,7 @@ export default class ElementUtil {
     async waitForElementToBeVisible(element: string): Promise<void> {
         return this.performAction(element, async (locator) => { }, { state: "visible", timeout: 60 * 10000 });
     }
-
+    
     async waitForElementToHidden(element: string): Promise<void> {
         let result;
 
@@ -96,9 +102,8 @@ export default class ElementUtil {
     }
 
     // Utility method to minimize repetition for actions on elements
-    async performAction(element: string, action: (locator: any) => Promise<any>, options = { state: "visible", timeout: 60 * 10000 }): Promise<any> {
-        console.log('---------------------- for calender button')
-        console.log(element)
+    async performAction(element: any, action: (locator: any) => Promise<any>, options: WaitForOptions = { state: "visible", timeout: 60 * 10000 }): Promise<any> {
+
         try {
             if (!element) {
                 throw new Error('Element selector is undefined or empty');
@@ -108,8 +113,7 @@ export default class ElementUtil {
             if (!locator) {
                 throw new Error(`Locator for element '${element}' not found`);
             }
-
-            await locator.waitFor(options);
+            await locator.waitFor(options); // Now the options will have the correct type
             return await action(locator);
         } catch (error) {
             console.error(`Error performing action on element: ${element}`, error);
@@ -128,4 +132,3 @@ export default class ElementUtil {
         }
     }
 }
-

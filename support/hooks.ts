@@ -1,7 +1,7 @@
 import { After, Before, BeforeAll, AfterAll, ITestCaseHookParameter, setDefaultTimeout } from '@cucumber/cucumber';
 import { chromium, Browser, BrowserContext, Page } from 'playwright';
 import ElementUtil from '../utils/elements-utils';
-import SetmoreLogin from '../page/app.page1';
+import SetmoreLogin from '../page/app.page';
 import * as dotenv from 'dotenv'; // Import dotenv
 
 // Load environment variables from the .env file
@@ -14,57 +14,56 @@ let page: Page;
 
 BeforeAll(async function () {
   browser = await chromium.launch({ headless: false });
+  context = await browser.newContext();
+  page = await context.newPage();
+
 });
 
 Before(async function (scenario: ITestCaseHookParameter) {
-  context = await browser.newContext();
-  page = await context.newPage();
-  
   // Make the page accessible in step definitions through world context
-  this.page = page;
   this.setmoreLogin = new SetmoreLogin(page);
   this.elementUtils = new ElementUtil(page);
 
-  // Default login data in the .env file
-  let loginUrl = process.env.SETMORE_LOGIN_URL;
-  let email = process.env.SETMORE_EMAIL;
-  let password = process.env.SETMORE_PASSWORD;
+  let loginUrl;
+  let email;
+  let password;
 
-  // Check for scenario tags to determine which credentials to use
   const tags = scenario.pickle.tags.map(tag => tag.name);
 
   // Load credentials based on the tags
   if (tags.includes('@setmoreLogin')) {
-    // Load Setmore credentials
-    loginUrl = process.env.SETMORE_LOGIN_URL;
-    email = process.env.SETMORE_EMAIL;
-    password = process.env.SETMORE_PASSWORD;
+      loginUrl = process.env.SETMORE_LOGIN_URL;
+      email = process.env.SETMORE_EMAIL;
+      password = process.env.SETMORE_PASSWORD;
   } else if (tags.includes('@SauseDemo')) {
-    // Load SauceDemo credentials
-    loginUrl = process.env.SAUCEDEMO_LOGIN_URL;
-    email = process.env.SAUCEDEMO_EMAIL;
-    password = process.env.SAUCEDEMO_PASSWORD;
+      loginUrl = process.env.SAUCEDEMO_LOGIN_URL;
+      email = process.env.SAUCEDEMO_EMAIL;
+      password = process.env.SAUCEDEMO_PASSWORD;
   }
 
-  // console.log(await this.setmoreLogin.setmoreLoginPageEmailField(email))
-  // console.log(await this.setmoreLogin.setmoreLoginPageEmailField(email))
-
-  // console.log(await this.setmoreLogin.setmoreLoginPagePasswordField(password))
-
-  // Use the dynamically loaded credentials and URL
   await this.elementUtils.gotoURL(loginUrl);
-  await this.setmoreLogin.setmoreLoginPageEmailField(email);
-  await this.setmoreLogin.setmoreLoginPagePasswordField(password);
-  await this.setmoreLogin.setmoreLoginPageButton();
+
+  // Use the appropriate login methods based on the tags
+  if (tags.includes('@setmoreLogin')) {
+      await this.setmoreLogin.setmoreLoginPageEmailField(email);
+      await this.setmoreLogin.setmoreLoginPagePasswordField(password);
+      await this.setmoreLogin.setmoreLoginPageButton();
+  } else if (tags.includes('@SauseDemo')) {
+      await this.setmoreLogin.sauceDemoLoginPageEmailField(email);
+      await this.setmoreLogin.sauceDemoLoginPagePasswordField(password);
+      await this.setmoreLogin.sauceDemoLoginPageButton();
+  }
 });
 
 After(async function () {
   await page.close();
-  await context.close();
 });
 
 AfterAll(async function () {
-  await browser.close();
+  await context.close();
+  if (browser) {
+    await browser.close();
+  }
 });
 
 export {
