@@ -101,7 +101,6 @@ export default class ElementUtil {
         });
     }
 
-    // Utility method to minimize repetition for actions on elements
     async performAction(element: any, action: (locator: any) => Promise<any>, options: WaitForOptions = { state: "visible", timeout: 60 * 10000 }): Promise<any> {
 
         try {
@@ -113,15 +112,14 @@ export default class ElementUtil {
             if (!locator) {
                 throw new Error(`Locator for element '${element}' not found`);
             }
-            await locator.waitFor(options); // Now the options will have the correct type
+            await locator.waitFor(options); 
             return await action(locator);
         } catch (error) {
             console.error(`Error performing action on element: ${element}`, error);
-            throw error; // Rethrow the error for upstream handling
+            throw error; 
         }
     }
 
-    // General method to check element states like isHidden, isDisabled, etc.
     async checkElementState(element: string, state: string): Promise<boolean> {
         try {
             const locator = this.page.locator(element);

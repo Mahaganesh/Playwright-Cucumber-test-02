@@ -2,9 +2,8 @@ import { After, Before, BeforeAll, AfterAll, ITestCaseHookParameter, setDefaultT
 import { chromium, Browser, BrowserContext, Page } from 'playwright';
 import ElementUtil from '../utils/elements-utils';
 import SetmoreLogin from '../page/app.page';
-import * as dotenv from 'dotenv'; // Import dotenv
+import * as dotenv from 'dotenv'; 
 
-// Load environment variables from the .env file
 dotenv.config();
 setDefaultTimeout(60 * 10000)
 
@@ -20,7 +19,6 @@ BeforeAll(async function () {
 });
 
 Before(async function (scenario: ITestCaseHookParameter) {
-  // Make the page accessible in step definitions through world context
   this.setmoreLogin = new SetmoreLogin(page);
   this.elementUtils = new ElementUtil(page);
 
@@ -30,7 +28,6 @@ Before(async function (scenario: ITestCaseHookParameter) {
 
   const tags = scenario.pickle.tags.map(tag => tag.name);
 
-  // Load credentials based on the tags
   if (tags.includes('@setmoreLogin')) {
       loginUrl = process.env.SETMORE_LOGIN_URL;
       email = process.env.SETMORE_EMAIL;
@@ -43,7 +40,6 @@ Before(async function (scenario: ITestCaseHookParameter) {
 
   await this.elementUtils.gotoURL(loginUrl);
 
-  // Use the appropriate login methods based on the tags
   if (tags.includes('@setmoreLogin')) {
       await this.setmoreLogin.setmoreLoginPageEmailField(email);
       await this.setmoreLogin.setmoreLoginPagePasswordField(password);
