@@ -9,16 +9,19 @@ setDefaultTimeout(60 * 1000);
 
 let setmoreLogin: SetmoreLogin;
 
+
 Before(async function () {
     if (!page) {
         throw new Error("Page is not initialized.");
     }
+    // Initialize the SauseDemoLogin instance before each scenario
     setmoreLogin = new SetmoreLogin(page);
+    this.setmoreLogin = setmoreLogin; // Attach to `this` for access in step definitions
 });
 
+
+
 Given('Login to Setmore', async function () {
-    console.log("Waiting")
-    // await page.pause()
     await this.setmoreLogin.waitForSetmoreCalenderSideButton();
 });
 

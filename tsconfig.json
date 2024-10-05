@@ -3,6 +3,7 @@
         "lib": [
             "es2021"
         ],
+        "target": "ES5",
         "typeRoots": [
             "./node_modules/@types",
             "src/test/types"

@@ -17,6 +17,6 @@
         "format": [
             "progress-bar"
         ],
-        "parallel": 2
+        "parallel": 1
     }
 }

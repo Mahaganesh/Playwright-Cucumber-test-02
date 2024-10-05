@@ -19,7 +19,7 @@ export default class ElementUtil {
 
     async gotoURL(url: string): Promise<void> {
         try {
-            await this.page.goto(url, { waitUntil: "domcontentloaded" });
+            await this.page.goto(url, { waitUntil: "domcontentloaded", timeout: 60 * 10000 });
         } catch (error) {
             console.error(`Error navigating to URL: ${url}`, error);
         }

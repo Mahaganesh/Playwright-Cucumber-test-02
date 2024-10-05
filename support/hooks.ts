@@ -2,6 +2,7 @@ import { After, Before, BeforeAll, AfterAll, ITestCaseHookParameter, setDefaultT
 import { chromium, Browser, BrowserContext, Page } from 'playwright';
 import ElementUtil from '../utils/elements-utils';
 import SetmoreLogin from '../page/app.page';
+import SauseDemoLogin from '../page/sauseedemo.page';
 import * as dotenv from 'dotenv'; 
 
 dotenv.config();
@@ -20,6 +21,8 @@ BeforeAll(async function () {
 
 Before(async function (scenario: ITestCaseHookParameter) {
   this.setmoreLogin = new SetmoreLogin(page);
+  this.sauseDemo = new SauseDemoLogin(page);
+
   this.elementUtils = new ElementUtil(page);
 
   let loginUrl;
@@ -45,9 +48,9 @@ Before(async function (scenario: ITestCaseHookParameter) {
       await this.setmoreLogin.setmoreLoginPagePasswordField(password);
       await this.setmoreLogin.setmoreLoginPageButton();
   } else if (tags.includes('@SauseDemo')) {
-      await this.setmoreLogin.sauceDemoLoginPageEmailField(email);
-      await this.setmoreLogin.sauceDemoLoginPagePasswordField(password);
-      await this.setmoreLogin.sauceDemoLoginPageButton();
+      await this.sauseDemo.sauseDemoLoginPageEmailField(email);
+      await this.sauseDemo.sauseDemoLoginPagePasswordField(password);
+      await this.sauseDemo.sauseDemoLoginPageButton();
   }
 });
 
