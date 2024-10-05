@@ -102,7 +102,7 @@ export default class ElementUtil {
     }
 
     async performAction(element: any, action: (locator: any) => Promise<any>, options: WaitForOptions = { state: "visible", timeout: 60 * 10000 }): Promise<any> {
-
+ 
         try {
             if (!element) {
                 throw new Error('Element selector is undefined or empty');
