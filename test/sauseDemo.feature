@@ -1,12 +1,13 @@
 @SauseDemo
 Feature: MakeMyTrip_Validation
 
-    @test1
-    Scenario: Find Flight For Source And Destination
+    Scenario: Login and Adding item to cart
         Given Login to SauseDemo
-        When Select Demo One
+        Then Adding Item to Cart
         Then Validate
-
+        When Check Item in cart
+        Then Fill the details
+        Then Checkout from cart
 
 
 

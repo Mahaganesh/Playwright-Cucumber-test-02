@@ -11,39 +11,63 @@ export default class SauseDemoLogin {
     private sauseDemoLoginPassword: string;
     private sauseDemoLoginButton: string;
     private sauseDemoHeader: string;
-    private sauseDemoContactsPage: string;
+    private sauseDemoCartButton: string;
+    private sauseDemoAddtoCartButton: string;
+    private sauseDemoCheckoutButton: string; 
 
     constructor(page: Page) {
         this.page = page;
         this.elementUtil = new ElementUtil(page);
-        this.sauseDemoLoginEmail = '//input[@id="user-name"]';
-        this.sauseDemoLoginPassword = '//input[@id="password"]';
-        this.sauseDemoLoginButton = '//input[@id="login-button"]';
-        this.sauseDemoHeader = '//div[@class="app_logo"]';
+        this.sauseDemoLoginEmail = '//input[@id="user-name"]';  // wait on line:32 and action on line:54
+        this.sauseDemoLoginPassword = '//input[@id="password"]';  // wait on line:36 and action on line:59
+        this.sauseDemoLoginButton = '//input[@id="login-button"]';  // wait on line:40 and action on line:64
+        this.sauseDemoHeader = '//div[@class="app_logo"]';  // wait on line:44 and action on line:70
+        this.sauseDemoCartButton = '//a[@data-test="shopping-cart-link"]'
+        // this.sauseDemo
+        this.sauseDemoAddtoCartButton = '//button[@id="add-to-cart"]'  // wait on line:48 and action on line:75
+        this.sauseDemoCheckoutButton = '//button[@id="checkout"]'
     }
 
     private getInventoryItemSelector(itemName: string): string {
         return `//div[@data-test='inventory-item-name' and text()='${itemName}']`;
     }
 
-    async waitForsauseDemoLoginEmailField() {
+    // Waiting for element to be visible 
+
+    async waitForSauseDemoLoginEmailField() {
         return this.elementUtil.elementIsVisible(this.sauseDemoLoginEmail);
     }
 
-    async waitForsauseDemoLoginPasswordField() {
+    async waitForSauseDemoLoginPasswordField() {
         return this.elementUtil.elementIsVisible(this.sauseDemoLoginPassword);
     }
 
-    async waitForsauseDemoLoginButton() {
+    async waitForSauseDemoLoginButton() {
         return this.elementUtil.elementIsVisible(this.sauseDemoLoginButton);
     }
 
-    async waitForsauseDemoHeader() {
+    async waitForSauseDemoHeader() {
         return this.elementUtil.waitForElementToBeVisible(this.sauseDemoHeader);
     }
 
+    async waitForSauseDemoCartButton() {
+        return this.elementUtil.waitForElementToBeVisible(this.sauseDemoCartButton)
+    }
+
+    async waitForSauseDemoAddToCardButton() {
+        return this.elementUtil.elementIsVisible(this.sauseDemoAddtoCartButton);
+    }
+
+    async waitForSauseDemoItem(itemName: string) {
+        return this.getInventoryItemSelector(itemName)
+    }
+
+    async waitForSauseDemoCheckoutButton() {
+        return this.elementUtil.elementIsVisible(this.sauseDemoCheckoutButton);
+    }
 
     // Action functions
+
     async sauseDemoLoginPageEmailField(email: string): Promise<void> {
         sauseDemoLoginStore.setEmail(email);
         await this.elementUtil.fill(this.sauseDemoLoginEmail, email);
@@ -62,8 +86,19 @@ export default class SauseDemoLogin {
 
     async selectInventoryItem(itemName: string): Promise<void> {
         const selector = this.getInventoryItemSelector(itemName);
-        await this.elementUtil.trigger(selector); // Assuming `trigger` clicks on the element
+        await this.elementUtil.trigger(selector); 
     }
 
+    async selectCartButton() {
+        await this.elementUtil.trigger(this.sauseDemoCartButton)
+    }
+
+    async  selectAddToCartButton(): Promise<void> {
+        await this.elementUtil.trigger(this.sauseDemoAddtoCartButton);
+    }
+
+    async selectCheckoutButton(): Promise<void> {
+        await this.elementUtil.trigger(this.sauseDemoCheckoutButton);
+    }
 }
 

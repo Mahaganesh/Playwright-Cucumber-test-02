@@ -54,11 +54,9 @@ Before(async function (scenario: ITestCaseHookParameter) {
   }
 });
 
-After(async function () {
-  await page.close();
-});
 
 AfterAll(async function () {
+  await page.close();
   await context.close();
   if (browser) {
     await browser.close();
